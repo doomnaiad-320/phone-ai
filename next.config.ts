@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 import withPWA from "next-pwa";
 
 const nextConfig: NextConfig = {
-  output: "export",
+  // Remove output: "export" for development mode
+  // output: "export", // Only use this for static builds
   distDir: ".next",
   images: {
     domains: ["localhost"],
