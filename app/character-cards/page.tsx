@@ -330,31 +330,14 @@ export default function CharacterCards() {
   if (!mounted) return null;
 
   return (
-    <div className="h-full w-full overflow-hidden login-fantasy-bg relative">
-      <div
-        className={`absolute inset-0 z-0 opacity-35 transition-opacity duration-500 ${
-          imagesLoaded ? "opacity-35" : "opacity-0"
-        }`}
-        style={{
-          backgroundImage: "url('/background_yellow.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
-
-      <div
-        className={`absolute inset-0 z-1 opacity-45 transition-opacity duration-500 ${
-          imagesLoaded ? "opacity-45" : "opacity-0"
-        }`}
-        style={{
-          backgroundImage: "url('/background_red.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          mixBlendMode: "multiply",
-        }}
-      />
+    <div className="h-full w-full overflow-hidden bg-gradient-to-br from-blue-50 via-white to-slate-50 relative">
+      {/* 亮色主题装饰元素 */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-blue-100 rounded-full opacity-20 animate-pulse"></div>
+        <div className="absolute bottom-32 right-16 w-24 h-24 bg-indigo-100 rounded-full opacity-30 animate-pulse delay-1000"></div>
+        <div className="absolute top-1/3 right-20 w-16 h-16 bg-sky-100 rounded-full opacity-25 animate-pulse delay-500"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-20 h-20 bg-cyan-100 rounded-full opacity-20 animate-pulse delay-700"></div>
+      </div>
       
       <div className="h-full w-full overflow-y-auto">
         <div className="flex flex-col items-center justify-start w-full py-8">
@@ -366,9 +349,9 @@ export default function CharacterCards() {
               className="flex justify-between items-center mb-8"
             >
               <div className="flex items-center gap-3">
-                <h1 className={`text-xl sm:text-2xl magical-login-text ${serifFontClass}`}>{t("sidebar.characterCards")}</h1>
+                <h1 className={`text-xl sm:text-2xl font-bold text-slate-800 ${serifFontClass}`}>{t("sidebar.characterCards")}</h1>
                 <motion.button
-                  className={`hidden md:block portal-button text-[#c0a480] hover:text-[#ffd475] p-1.5 sm:p-2 border border-[#534741] rounded-lg cursor-pointer ${fontClass} translate-y-[1px]`}
+                  className={`hidden md:block bg-white text-blue-600 hover:text-blue-700 p-1.5 sm:p-2 border border-slate-200 rounded-lg cursor-pointer ${fontClass} translate-y-[1px] shadow-sm hover:shadow-md transition-all duration-200`}
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   onClick={() => {
@@ -395,52 +378,49 @@ export default function CharacterCards() {
               </div>
               <div className="flex gap-2 sm:gap-3">
                 <motion.div
-                  className={`portal-button relative overflow-hidden px-2 py-1.5 sm:px-4 sm:py-2 rounded-lg cursor-pointer ${fontClass}
-                    bg-gradient-to-b from-[#2a231c] to-[#1a1510]
-                    border border-[#534741]
-                    shadow-[0_0_15px_rgba(192,164,128,0.1)]
-                    hover:shadow-[0_0_20px_rgba(192,164,128,0.2)]
-                    before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-[rgba(192,164,128,0.1)] before:to-transparent
-                    before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700
+                  className={`relative overflow-hidden px-2 py-1.5 sm:px-4 sm:py-2 rounded-lg cursor-pointer ${fontClass}
+                    bg-gradient-to-r from-blue-500 to-indigo-600
+                    text-white
+                    shadow-lg hover:shadow-xl
+                    transition-all duration-300
                     group`}
-                  whileHover={{ 
-                    scale: 1.01,
-                    boxShadow: "0 0 25px rgba(192,164,128,0.3)",
+                  whileHover={{
+                    scale: 1.02,
+                    y: -2
                   }}
                   whileTap={{ scale: 0.98 }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 400, 
-                    damping: 10, 
+                  transition={{
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 10,
                   }}
                   onClick={() => setIsImportModalOpen(true)}
                 >
-                  <span className="relative z-10 text-[#c0a480] group-hover:text-[#ffd475] transition-colors duration-300 text-xs sm:text-base">
+                  <span className="relative z-10 text-white transition-colors duration-300 text-xs sm:text-base font-medium">
                     {t("characterCardsPage.importCharacter")}
                   </span>
                 </motion.div>
                 <motion.div
-                  className={`portal-button relative overflow-hidden px-2 py-1.5 sm:px-4 sm:py-2 rounded-lg cursor-pointer ${fontClass}
-                    bg-gradient-to-b from-[#2a231c] to-[#1a1510]
-                    border border-[#534741]
-                    shadow-[0_0_15px_rgba(192,164,128,0.1)]
-                    hover:shadow-[0_0_20px_rgba(192,164,128,0.2)]
-                    before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-[rgba(192,164,128,0.1)] before:to-transparent
-                    before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700
+                  className={`relative overflow-hidden px-2 py-1.5 sm:px-4 sm:py-2 rounded-lg cursor-pointer ${fontClass}
+                    bg-white
+                    text-blue-600
+                    border border-blue-200
+                    shadow-md hover:shadow-lg
+                    transition-all duration-300
                     group`}
-                  whileHover={{ 
-                    scale: 1.01,
-                    boxShadow: "0 0 25px rgba(192,164,128,0.3)",
+                  whileHover={{
+                    scale: 1.02,
+                    y: -2
                   }}
                   whileTap={{ scale: 0.98 }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 400, 
-                    damping: 10, 
+                  transition={{
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 10,
                   }}
                   onClick={() => setIsDownloadModalOpen(true)}
                 >
-                  <span className="relative z-10 text-[#c0a480] group-hover:text-[#ffd475] transition-colors duration-300 text-xs sm:text-base">
+                  <span className="relative z-10 text-blue-600 hover:text-blue-700 transition-colors duration-300 text-xs sm:text-base font-medium">
                     {t("characterCardsPage.downloadCharacter")}
                   </span>
                 </motion.div>
@@ -454,9 +434,9 @@ export default function CharacterCards() {
                 className="flex justify-center items-center h-64"
               >
                 <div className="relative w-16 h-16">
-                  <div className="absolute inset-0 rounded-full border-2 border-t-[#f9c86d] border-r-[#c0a480] border-b-[#a18d6f] border-l-transparent animate-spin"></div>
-                  <div className="absolute inset-2 rounded-full border-2 border-t-[#a18d6f] border-r-[#f9c86d] border-b-[#c0a480] border-l-transparent animate-spin-slow"></div>
-                  <div className={`absolute w-full text-center top-20 text-[#c0a480] ${fontClass}`}>
+                  <div className="absolute inset-0 rounded-full border-2 border-t-blue-500 border-r-indigo-400 border-b-blue-300 border-l-transparent animate-spin"></div>
+                  <div className="absolute inset-2 rounded-full border-2 border-t-indigo-400 border-r-blue-500 border-b-indigo-300 border-l-transparent animate-spin-slow"></div>
+                  <div className={`absolute w-full text-center top-20 text-blue-600 ${fontClass}`}>
                     {isDownloadingPresets ? t("characterCardsPage.downloadingPresets") : t("characterCardsPage.loading")}
                   </div>
                 </div>
@@ -466,17 +446,17 @@ export default function CharacterCards() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="session-card p-8 text-center"
+                className="bg-white rounded-xl shadow-lg border border-slate-200 p-8 text-center"
               >
                 <div className="mb-6 opacity-60">
                   <svg className="mx-auto" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M32 0L38 20H60L42 32L48 52L32 40L16 52L22 32L4 20H26L32 0Z" fill="#f9c86d" fillOpacity="0.3" />
+                    <path d="M32 0L38 20H60L42 32L48 52L32 40L16 52L22 32L4 20H26L32 0Z" fill="#3b82f6" fillOpacity="0.3" />
                   </svg>
                 </div>
-                <p className={`text-[#eae6db] mb-6 ${serifFontClass}`}>{t("characterCardsPage.noCharacters")}</p>
+                <p className={`text-slate-700 mb-6 ${serifFontClass}`}>{t("characterCardsPage.noCharacters")}</p>
                 <motion.div
-                  className={`portal-button inline-block text-[#c0a480] hover:text-[#ffd475] px-5 py-2 border border-[#534741] rounded-lg cursor-pointer ${fontClass}`}
-                  whileHover={{ scale: 1.05 }}
+                  className={`inline-block bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-5 py-2 rounded-lg cursor-pointer ${fontClass} font-medium shadow-lg hover:shadow-xl transition-all duration-300`}
+                  whileHover={{ scale: 1.05, y: -2 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   onClick={() => setIsImportModalOpen(true)}
                 >

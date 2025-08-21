@@ -92,13 +92,13 @@ const CharacterCardGrid: React.FC<CharacterCardGridProps> = ({
             transitionSpeed={2000}
             className="h-full"
           >
-            <div className="relative session-card h-full transition-all duration-300">
+            <div className="relative bg-white shadow-lg border border-slate-200 rounded-lg h-full transition-all duration-300">
               {/* Action buttons for each card */}
               <div className="absolute top-1 right-1 sm:top-2 sm:right-2 flex space-x-0.5 sm:space-x-1 z-10">
                 {/* move character to top of the screen */}
                 <button
                   onClick={(e) => {e.stopPropagation(); trackButtonClick("move_to_top_character_btn", "置顶角色"); onMoveToTopClick(character.id);}}
-                  className="p-2 sm:p-1.5 bg-[#252220] hover:bg-[#3a2a2a] rounded-full text-[#c0a480] hover:text-[#ffd475] transition-colors"
+                  className="p-2 sm:p-1.5 bg-white/90 hover:bg-orange-50 rounded-full text-orange-600 hover:text-orange-700 transition-colors shadow-sm border border-orange-100"
                   title={t("characterCardsPage.move_to_top")}
                   aria-label={t("characterCardsPage.move_to_top")}
                 >
@@ -110,7 +110,7 @@ const CharacterCardGrid: React.FC<CharacterCardGridProps> = ({
                 </button>
                 <button
                   onClick={(e) => {trackButtonClick("edit_character_btn", "编辑角色"); onEditClick(character, e);}}
-                  className="p-2 sm:p-1.5 bg-[#252220] hover:bg-[#3a2a2a] rounded-full text-[#c0a480] hover:text-[#ffd475] transition-colors"
+                  className="p-2 sm:p-1.5 bg-white/90 hover:bg-green-50 rounded-full text-green-600 hover:text-green-700 transition-colors shadow-sm border border-green-100"
                   title={t("characterCardsPage.edit")}
                   aria-label={t("characterCardsPage.edit")}
                 >
@@ -125,7 +125,7 @@ const CharacterCardGrid: React.FC<CharacterCardGridProps> = ({
                     e.stopPropagation();
                     onDeleteClick(character.id);
                   }}
-                  className="p-2 sm:p-1.5 bg-[#252220] hover:bg-[#3a2a2a] rounded-full text-[#c0a480] hover:text-[#ffd475] transition-colors"
+                  className="p-2 sm:p-1.5 bg-white/90 hover:bg-red-50 rounded-full text-red-600 hover:text-red-700 transition-colors shadow-sm border border-red-100"
                   title={t("characterCardsPage.delete")}
                   aria-label={t("characterCardsPage.delete")}
                 >
@@ -145,8 +145,8 @@ const CharacterCardGrid: React.FC<CharacterCardGridProps> = ({
                   {character.avatar_path ? (
                     <CharacterAvatarBackground avatarPath={character.avatar_path} />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-[#252220]">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 sm:h-24 sm:w-24 text-[#534741]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-full h-full flex items-center justify-center bg-slate-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 sm:h-24 sm:w-24 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
                     </div>
@@ -154,8 +154,8 @@ const CharacterCardGrid: React.FC<CharacterCardGridProps> = ({
                 </div>
               
                 <div className="p-2 sm:p-4">
-                  <h2 className={`text-sm sm:text-lg text-[#eae6db] line-clamp-1 magical-text ${serifFontClass}`}>{character.name}</h2>
-                  <div className={`text-[10px] sm:text-xs text-[#a18d6f] mt-1 sm:mt-2 italic ${fontClass}`}>
+                  <h2 className={`text-sm sm:text-lg text-slate-800 line-clamp-1 font-semibold ${serifFontClass}`}>{character.name}</h2>
+                  <div className={`text-[10px] sm:text-xs text-slate-600 mt-1 sm:mt-2 italic ${fontClass}`}>
                     <span className="inline-block mr-1 opacity-70">✨</span>
                     <span className="line-clamp-2">{character.personality}</span>
                   </div>

@@ -167,49 +167,49 @@ function DialogueNodeComponent({ id, data }: NodeProps<DialogueNode["data"]>) {
   let borderColor, hoverBorderColor, textColor, expandIconColor, jumpButtonColor;
   
   if (id === "root") {
-    borderColor = "border-purple-700";
+    borderColor = "border-purple-400";
     hoverBorderColor = "hover:border-purple-500";
-    textColor = "text-purple-200";
-    expandIconColor = "text-purple-400";
-    jumpButtonColor = "text-purple-400 hover:text-purple-300";
+    textColor = "text-purple-700";
+    expandIconColor = "text-purple-600";
+    jumpButtonColor = "text-purple-600 hover:text-purple-700";
   }
   else if (data.isCurrentPath) {
-    borderColor = "border-red-800";
-    hoverBorderColor = "hover:border-red-600";
-    textColor = "text-red-200";
-    expandIconColor = "text-red-400";
-    jumpButtonColor = "text-red-400 hover:text-red-300";
-  } 
+    borderColor = "border-blue-400";
+    hoverBorderColor = "hover:border-blue-500";
+    textColor = "text-blue-700";
+    expandIconColor = "text-blue-600";
+    jumpButtonColor = "text-blue-600 hover:text-blue-700";
+  }
   else {
-    borderColor = "border-[#3a3633]";
-    hoverBorderColor = "hover:border-[#6b635d]";
-    textColor = "text-[#a8a095]";
-    expandIconColor = "text-amber-700";
-    jumpButtonColor = "text-amber-700 hover:text-amber-600";
+    borderColor = "border-gray-300";
+    hoverBorderColor = "hover:border-gray-400";
+    textColor = "text-gray-700";
+    expandIconColor = "text-blue-500";
+    jumpButtonColor = "text-blue-500 hover:text-blue-600";
   }
 
   return (
-    <div 
-      className={`fantasy-bg border ${borderColor} rounded-md p-3 shadow-md w-72 ${hoverBorderColor} transition-all duration-300 relative cursor-pointer ${fontClass} ${data.isCurrentPath ? "bg-opacity-100" : "bg-opacity-70"}`}
+    <div
+      className={`bg-white border ${borderColor} rounded-md p-3 shadow-md w-72 ${hoverBorderColor} transition-all duration-300 relative cursor-pointer ${fontClass} ${data.isCurrentPath ? "bg-opacity-100" : "bg-opacity-95"}`}
       onClick={handleNodeClick}
     >
       {showRootTooltip && (
-        <div className="absolute -top-14 right-0 z-20 bg-[#1c1c1c] border border-amber-700 rounded-md p-2 shadow-lg max-w-[200px] text-xs text-amber-400 animate-fade-in">
+        <div className="absolute -top-14 right-0 z-20 bg-white border border-blue-400 rounded-md p-2 shadow-lg max-w-[200px] text-xs text-blue-600 animate-fade-in">
           <div className="relative">
             {t("dialogue.rootNodeCannotJump")}
-            <div className="absolute -bottom-6 right-4 w-0 h-0 border-8 border-transparent border-t-amber-700"></div>
+            <div className="absolute -bottom-6 right-4 w-0 h-0 border-8 border-transparent border-t-blue-400"></div>
           </div>
         </div>
       )}
       <div className="absolute top-2 right-2 z-10">
         <button
           onClick={(e) => {trackButtonClick("DialogueTreeModal", "跳转到节点");handleJumpClick(e);}}
-          className={`${jumpButtonColor} transition-colors duration-300 p-1 rounded-full hover:bg-[#2a2825] focus:outline-none`}
+          className={`${jumpButtonColor} transition-colors duration-300 p-1 rounded-full hover:bg-blue-50 focus:outline-none`}
           title={t("dialogue.jumpToNode")}
           disabled={isJumping}
         >
           {isJumping ? (
-            <div className="w-4 h-4 rounded-full border-2 border-t-transparent border-amber-400 animate-spin"></div>
+            <div className="w-4 h-4 rounded-full border-2 border-t-transparent border-blue-500 animate-spin"></div>
           ) : (
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 10 20 15 15 20"></polyline>
@@ -218,29 +218,29 @@ function DialogueNodeComponent({ id, data }: NodeProps<DialogueNode["data"]>) {
           )}
         </button>
       </div>
-      <Handle 
-        type="target" 
-        position={Position.Top} 
-        id="a" 
+      <Handle
+        type="target"
+        position={Position.Top}
+        id="a"
         className={`w-2 h-2 ${
-          id === "root" 
-            ? "!bg-purple-500 !border-purple-700" 
-            : data.isCurrentPath 
-              ? "!bg-red-500 !border-red-700" 
-              : "!bg-amber-700 !border-amber-900"
+          id === "root"
+            ? "!bg-purple-500 !border-purple-600"
+            : data.isCurrentPath
+              ? "!bg-blue-500 !border-blue-600"
+              : "!bg-blue-400 !border-blue-500"
         }`}
       />
-      <div 
+      <div
         className={`${textColor} text-sm ${serifFontClass} ${
-          id === "root" 
-            ? "hover:text-purple-300" 
-            : data.isCurrentPath 
-              ? "hover:text-red-300" 
-              : "hover:text-amber-700"
+          id === "root"
+            ? "hover:text-purple-800"
+            : data.isCurrentPath
+              ? "hover:text-blue-800"
+              : "hover:text-blue-600"
         } transition-colors duration-300 flex items-center`}
         onClick={handleToggleExpand}
       >
-        <div className={`w-5 h-5 mr-2 flex-shrink-0 ${expandIconColor} bg-[#1c1c1c] rounded-full border ${borderColor} flex items-center justify-center`}>
+        <div className={`w-5 h-5 mr-2 flex-shrink-0 ${expandIconColor} bg-white rounded-full border ${borderColor} flex items-center justify-center`}>
           {isExpanded ? (
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 9l-7 7-7-7" />
@@ -264,25 +264,25 @@ function DialogueNodeComponent({ id, data }: NodeProps<DialogueNode["data"]>) {
         )}
       </div>
       {isExpanded && (
-        <div className="mt-3 p-3 bg-[#1c1c1c] rounded border border-[#444444] max-h-60 overflow-y-auto fantasy-scrollbar">
+        <div className="mt-3 p-3 bg-gray-50 rounded border border-gray-200 max-h-60 overflow-y-auto">
           {data.assistantResponse && (
             <div>
-              <div className={`text-[#a08c6a] text-xs ${fontClass} mb-1`}>{t("dialogue.assistantResponse") || "助手回复"}:</div>
-              <p className={`${data.isCurrentPath ? "text-[#d1a35c]" : "text-[#a08c6a]"} text-xs ${fontClass} leading-relaxed`}>{data.assistantResponse}</p>
+              <div className={`text-gray-600 text-xs ${fontClass} mb-1`}>{t("dialogue.assistantResponse") || "助手回复"}:</div>
+              <p className={`${data.isCurrentPath ? "text-blue-700" : "text-gray-700"} text-xs ${fontClass} leading-relaxed`}>{data.assistantResponse}</p>
             </div>
           )}
         </div>
       )}
-      <Handle 
-        type="source" 
-        position={Position.Bottom} 
-        id="b" 
+      <Handle
+        type="source"
+        position={Position.Bottom}
+        id="b"
         className={`w-2 h-2 ${
-          id === "root" 
-            ? "!bg-purple-500 !border-purple-700" 
-            : data.isCurrentPath 
-              ? "!bg-red-500 !border-red-700" 
-              : "!bg-amber-700 !border-amber-900"
+          id === "root"
+            ? "!bg-purple-500 !border-purple-600"
+            : data.isCurrentPath
+              ? "!bg-blue-500 !border-blue-600"
+              : "!bg-blue-400 !border-blue-500"
         }`}
       />
     </div>
@@ -1462,13 +1462,13 @@ export default function DialogueTreeModal({ isOpen, onClose, characterId, onDial
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <DialogueFlowStyles />
-      <div className="absolute inset-0 backdrop-blur-sm"></div>
-      <div ref={modalRef} className="bg-[#1e1c1b] bg-opacity-75 border border-[#534741] rounded-lg shadow-lg p-4 w-[90%] h-[80%] max-w-5xl mx-4 fantasy-bg relative z-10 backdrop-filter backdrop-blur-sm">
+      <div className="absolute inset-0 backdrop-blur-sm bg-black bg-opacity-20"></div>
+      <div ref={modalRef} className="bg-white border border-gray-200 rounded-lg shadow-xl p-4 w-[90%] h-[80%] max-w-5xl mx-4 relative z-10">
         <div className="flex justify-between items-center mb-4">
-          <h3 className={`text-[#f4e8c1] text-lg ${serifFontClass}`}>{t("dialogue.treeVisualization")}</h3>
-          <button 
+          <h3 className={`text-gray-800 text-lg ${serifFontClass}`}>{t("dialogue.treeVisualization")}</h3>
+          <button
             onClick={(e) => {trackButtonClick("DialogueTreeModal", "关闭对话树");onClose();}}
-            className="text-[#8a8a8a] hover:text-amber-400 transition-colors duration-300"
+            className="text-gray-500 hover:text-blue-600 transition-colors duration-300"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -1479,17 +1479,17 @@ export default function DialogueTreeModal({ isOpen, onClose, characterId, onDial
         
         {!characterId ? (
           <div className="h-[calc(100%-6rem)] w-full flex flex-col items-center justify-center">
-            <div className="text-center p-6 border border-[#534741] rounded-lg bg-[#1c1c1c] max-w-lg">
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d1a35c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-4">
+            <div className="text-center p-6 border border-gray-200 rounded-lg bg-gray-50 max-w-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-4">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="12" y1="8" x2="12" y2="12"></line>
                 <line x1="12" y1="16" x2="12.01" y2="16"></line>
               </svg>
-              <h4 className={`text-amber-400 mb-3 ${serifFontClass}`}>{t("dialogue.noCharacterSelected")}</h4>
-              <p className={`text-[#f4e8c1] mb-4 ${fontClass}`}>{t("dialogue.selectCharacterFirst")}</p>
-              <button 
+              <h4 className={`text-blue-600 mb-3 ${serifFontClass}`}>{t("dialogue.noCharacterSelected")}</h4>
+              <p className={`text-gray-700 mb-4 ${fontClass}`}>{t("dialogue.selectCharacterFirst")}</p>
+              <button
                 onClick={(e) => {trackButtonClick("DialogueTreeModal", "关闭对话树");onClose();}}
-                className={`px-4 py-2 bg-[#2a2825] hover:bg-[#3a3835] text-amber-400 rounded-md transition-all duration-300 border border-amber-700 hover:shadow-[0_0_8px_rgba(251,146,60,0.4)] ${fontClass}`}
+                className={`px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition-all duration-300 border border-blue-500 hover:shadow-lg ${fontClass}`}
               >
                 {t("common.return")}
               </button>
@@ -1497,24 +1497,24 @@ export default function DialogueTreeModal({ isOpen, onClose, characterId, onDial
           </div>
         ) : !dataLoaded ? (
           <div className="h-[calc(100%-6rem)] w-full flex flex-col items-center justify-center">
-            <div className="text-center p-6 border border-[#534741] rounded-lg bg-[#1c1c1c] max-w-lg">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-400 mx-auto mb-4"></div>
-              <p className={`text-[#f4e8c1] ${fontClass}`}>{t("dialogue.loadingDialogue")}</p>
+            <div className="text-center p-6 border border-gray-200 rounded-lg bg-gray-50 max-w-lg">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto mb-4"></div>
+              <p className={`text-gray-700 ${fontClass}`}>{t("dialogue.loadingDialogue")}</p>
             </div>
           </div>
         ) : nodes.length === 0 ? (
           <div className="h-[calc(100%-6rem)] w-full flex flex-col items-center justify-center">
-            <div className="text-center p-6 border border-[#534741] rounded-lg bg-[#1c1c1c] max-w-lg">
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d1a35c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-4">
+            <div className="text-center p-6 border border-gray-200 rounded-lg bg-gray-50 max-w-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-4">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="12" y1="8" x2="12" y2="12"></line>
                 <line x1="12" y1="16" x2="12.01" y2="16"></line>
               </svg>
-              <h4 className={`text-amber-400 mb-3 ${serifFontClass}`}>{t("dialogue.noDialogueNodes")}</h4>
-              <p className={`text-[#f4e8c1] mb-4 ${fontClass}`}>{t("dialogue.startConversation")}</p>
-              <button 
+              <h4 className={`text-blue-600 mb-3 ${serifFontClass}`}>{t("dialogue.noDialogueNodes")}</h4>
+              <p className={`text-gray-700 mb-4 ${fontClass}`}>{t("dialogue.startConversation")}</p>
+              <button
                 onClick={(e) => {trackButtonClick("DialogueTreeModal", "关闭对话树");onClose();}}
-                className={`px-4 py-2 bg-[#2a2825] hover:bg-[#3a3835] text-amber-400 rounded-md transition-all duration-300 border border-amber-700 hover:shadow-[0_0_8px_rgba(251,146,60,0.4)] ${fontClass}`}
+                className={`px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition-all duration-300 border border-blue-500 hover:shadow-lg ${fontClass}`}
               >
                 {t("common.return") || "返回"}
               </button>
@@ -1597,12 +1597,12 @@ export default function DialogueTreeModal({ isOpen, onClose, characterId, onDial
                 
         {isEditModalOpen && selectedNode && (
           <div className="absolute inset-0 flex items-center justify-center backdrop-blur-md z-20">
-            <div ref={editModalRef} className="bg-[#1e1c1b] bg-opacity-85 border border-[#534741] rounded-lg p-6 w-[80%] max-w-2xl backdrop-filter backdrop-blur-sm shadow-lg">
+            <div ref={editModalRef} className="bg-white border border-gray-200 rounded-lg p-6 w-[80%] max-w-2xl shadow-xl">
               <div className="flex justify-between items-center mb-4">
-                <h4 className={`text-[#f4e8c1] text-lg ${serifFontClass}`}>{t("dialogue.editNode") || "编辑对话节点"}</h4>
-                <button 
+                <h4 className={`text-gray-800 text-lg ${serifFontClass}`}>{t("dialogue.editNode") || "编辑对话节点"}</h4>
+                <button
                   onClick={(e) => {trackButtonClick("DialogueTreeModal", "关闭编辑对话");setIsEditModalOpen(false);}}
-                  className="text-[#8a8a8a] hover:text-amber-400 transition-colors duration-300"
+                  className="text-gray-500 hover:text-blue-600 transition-colors duration-300"
                   aria-label={t("common.close")}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1612,10 +1612,10 @@ export default function DialogueTreeModal({ isOpen, onClose, characterId, onDial
                 </button>
               </div>
                       
-              <div className="fantasy-bg border border-[#534741] rounded-md p-3 mb-4 shadow-inner">
-                <h5 className={`text-amber-400 text-sm mb-2 ${serifFontClass}`}>{t("dialogue.memorySummary")}:</h5>
+              <div className="bg-gray-50 border border-gray-200 rounded-md p-3 mb-4">
+                <h5 className={`text-blue-600 text-sm mb-2 ${serifFontClass}`}>{t("dialogue.memorySummary")}:</h5>
                 <div className="ml-2">
-                  <ol className={`list-decimal list-inside ${fontClass} text-[#f4e8c1] text-sm`}>
+                  <ol className={`list-decimal list-inside ${fontClass} text-gray-700 text-sm`}>
                     {selectedNode.data.label.split(/——>|-->|->|→/).map((step, index) => (
                       <li key={index} className="mb-1">{step.trim()}</li>
                     ))}
@@ -1625,7 +1625,7 @@ export default function DialogueTreeModal({ isOpen, onClose, characterId, onDial
                       
               <div className="space-y-4">
                 <div>
-                  <label className={`block text-[#d1a35c] text-sm mb-2 ${serifFontClass}`}>
+                  <label className={`block text-blue-600 text-sm mb-2 ${serifFontClass}`}>
                     <span className="flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -1633,19 +1633,19 @@ export default function DialogueTreeModal({ isOpen, onClose, characterId, onDial
                       {t("dialogue.response")}
                     </span>
                   </label>
-                  <textarea 
+                  <textarea
                     value={editContent}
                     onChange={(e) => setEditContent(e.target.value)}
-                    className={`w-full h-64 p-3 bg-[#121212] border border-[#444444] rounded-md text-[#f4e8c1] fantasy-scrollbar focus:outline-none focus:border-amber-400 ${fontClass} text-sm leading-relaxed`}
+                    className={`w-full h-64 p-3 bg-white border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 ${fontClass} text-sm leading-relaxed`}
                     placeholder={t("dialogue.responsePlaceholder")}
                   />
                 </div>
               </div>
                       
               <div className="flex justify-end gap-5 mt-4">
-                <button 
+                <button
                   onClick={(e) => {trackButtonClick("DialogueTreeModal", "关闭编辑对话");setIsEditModalOpen(false);}}
-                  className={`text-[#8a8a8a] hover:text-amber-400 transition-colors duration-300 ${serifFontClass}`}
+                  className={`text-gray-500 hover:text-blue-600 transition-colors duration-300 ${serifFontClass}`}
                   aria-label={t("common.cancel")}
                   disabled={isSaving}
                 >
@@ -1653,13 +1653,13 @@ export default function DialogueTreeModal({ isOpen, onClose, characterId, onDial
                 </button>
                 {isSaving ? (
                   <div className="relative w-8 h-8">
-                    <div className="absolute inset-0 rounded-full border-2 border-t-[#f9c86d] border-r-[#c0a480] border-b-[#a18d6f] border-l-transparent animate-spin"></div>
-                    <div className="absolute inset-1 rounded-full border-2 border-t-[#a18d6f] border-r-[#f9c86d] border-b-[#c0a480] border-l-transparent animate-spin-slow"></div>
+                    <div className="absolute inset-0 rounded-full border-2 border-t-blue-500 border-r-blue-300 border-b-blue-200 border-l-transparent animate-spin"></div>
+                    <div className="absolute inset-1 rounded-full border-2 border-t-blue-300 border-r-blue-500 border-b-blue-400 border-l-transparent animate-spin-slow"></div>
                   </div>
                 ) : (
-                  <button 
+                  <button
                     onClick={(e) => {trackButtonClick("DialogueTreeModal", "保存编辑对话");saveEditContent();}}
-                    className={`text-amber-400 hover:text-amber-300 transition-colors duration-300 ${serifFontClass}`}
+                    className={`text-blue-600 hover:text-blue-700 transition-colors duration-300 ${serifFontClass}`}
                     aria-label={t("common.save")}
                   >
                     {t("common.save")}

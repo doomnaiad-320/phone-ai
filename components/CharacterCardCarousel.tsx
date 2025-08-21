@@ -152,23 +152,23 @@ const CharacterCardCarousel: React.FC<CharacterCardCarouselProps> = ({
               }}
             >
               {/* Character card content */}
-              <div className="relative session-card h-full w-full transition-all duration-300 overflow-hidden rounded">
+              <div className="relative bg-white shadow-lg border border-slate-200 h-full w-full transition-all duration-300 overflow-hidden rounded-lg">
                 {/* Action buttons */}
                 <div className="absolute top-2 right-2 flex space-x-1 z-10">
                   <Link
                     href={`/character?id=${character.id}`}
                     onClick={(e) => e.stopPropagation()}
-                    className="p-1.5 bg-[#252220] hover:bg-[#3a2a2a] rounded-full text-[#c0a480] hover:text-[#ffd475] transition-colors"
+                    className="p-1.5 bg-white/90 hover:bg-blue-50 rounded-full text-blue-600 hover:text-blue-700 transition-colors shadow-sm border border-blue-100"
                     title={t("characterCardsPage.chat")}
                     aria-label={t("characterCardsPage.chat")}
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#c0a480] hover:text-[#ffd475] transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                     </svg>
                   </Link>
                   <button
                     onClick={(e) => {trackButtonClick("edit_character_btn", "编辑角色"); onEditClick(character, e);}}
-                    className="p-1.5 bg-[#252220] hover:bg-[#3a2a2a] rounded-full text-[#c0a480] hover:text-[#ffd475] transition-colors"
+                    className="p-1.5 bg-white/90 hover:bg-green-50 rounded-full text-green-600 hover:text-green-700 transition-colors shadow-sm border border-green-100"
                     title={t("characterCardsPage.edit")}
                     aria-label={t("characterCardsPage.edit")}
                   >
@@ -183,7 +183,7 @@ const CharacterCardCarousel: React.FC<CharacterCardCarouselProps> = ({
                       e.stopPropagation();
                       onDeleteClick(character.id);
                     }}
-                    className="p-1.5 bg-[#252220] hover:bg-[#3a2a2a] rounded-full text-[#c0a480] hover:text-[#ffd475] transition-colors"
+                    className="p-1.5 bg-white/90 hover:bg-red-50 rounded-full text-red-600 hover:text-red-700 transition-colors shadow-sm border border-red-100"
                     title={t("characterCardsPage.delete")}
                     aria-label={t("characterCardsPage.delete")}
                   >
@@ -203,8 +203,8 @@ const CharacterCardCarousel: React.FC<CharacterCardCarouselProps> = ({
                     {character.avatar_path ? (
                       <CharacterAvatarBackground avatarPath={character.avatar_path} />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-[#252220]">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24 text-[#534741]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <div className="w-full h-full flex items-center justify-center bg-slate-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                       </div>
@@ -213,8 +213,8 @@ const CharacterCardCarousel: React.FC<CharacterCardCarouselProps> = ({
                 
                   {/* Character info */}
                   <div className="p-4 relative">
-                    <h2 className={`text-lg text-[#eae6db] line-clamp-1 magical-text ${serifFontClass}`}>{character.name}</h2>
-                    <div className={`text-xs text-[#a18d6f] mt-2 italic ${fontClass}`}>
+                    <h2 className={`text-lg text-slate-800 line-clamp-1 font-semibold ${serifFontClass}`}>{character.name}</h2>
+                    <div className={`text-xs text-slate-600 mt-2 italic ${fontClass}`}>
                       <span className="inline-block mr-1 opacity-70">✨</span>
                       <span className="line-clamp-2">{character.personality}</span>
                     </div>
@@ -229,7 +229,7 @@ const CharacterCardCarousel: React.FC<CharacterCardCarouselProps> = ({
                             handleRotateLeft();
                           }}
                           disabled={isAnimating}
-                          className="p-2 bg-[#252220]/90 hover:bg-[#3a2a2a]/95 rounded-full text-[#c0a480] hover:text-[#ffd475] transition-all duration-300 backdrop-blur-sm border border-[#3a2a2a]/50 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                          className="p-2 bg-white/90 hover:bg-blue-50 rounded-full text-blue-600 hover:text-blue-700 transition-all duration-300 backdrop-blur-sm border border-blue-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
                           aria-label="向左旋转"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -244,7 +244,7 @@ const CharacterCardCarousel: React.FC<CharacterCardCarouselProps> = ({
                             handleRotateRight();
                           }}
                           disabled={isAnimating}
-                          className="p-2 bg-[#252220]/90 hover:bg-[#3a2a2a]/95 rounded-full text-[#c0a480] hover:text-[#ffd475] transition-all duration-300 backdrop-blur-sm border border-[#3a2a2a]/50 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                          className="p-2 bg-white/90 hover:bg-blue-50 rounded-full text-blue-600 hover:text-blue-700 transition-all duration-300 backdrop-blur-sm border border-blue-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
                           aria-label="向右旋转"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
