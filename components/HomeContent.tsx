@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useLanguage } from "../app/i18n";
-import UserTour from "@/components/UserTour";
-import { useTour } from "@/hooks/useTour";
 
 // 模拟对话数据
 const mockConversations = [
@@ -82,10 +80,9 @@ const mockConversations = [
  * @returns {JSX.Element} The rendered home page content
  */
 export default function HomeContent() {
-  const { t, fontClass } = useLanguage();
+  const { fontClass } = useLanguage();
   const [mounted, setMounted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const { isTourVisible, currentTourSteps, completeTour, skipTour } = useTour();
 
   useEffect(() => {
     setMounted(true);
@@ -182,26 +179,6 @@ export default function HomeContent() {
           </motion.div>
         ))}
       </div>
-
-      {/* 底部操作区域 */}
-      <div className="bg-white border-t border-gray-200 px-4 py-3">
-        <Link href="/character-cards">
-          <motion.button
-            className={`w-full bg-blue-500 text-white py-3 rounded-lg font-medium ${fontClass} hover:bg-blue-600 transition-colors`}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            {t("homePage.immediatelyStart")}
-          </motion.button>
-        </Link>
-      </div>
-
-      <UserTour
-        steps={currentTourSteps}
-        isVisible={isTourVisible}
-        onComplete={completeTour}
-        onSkip={skipTour}
-      />
     </div>
   );
 }
