@@ -126,38 +126,25 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <div className="flex h-full overflow-hidden fantasy-bg relative"> 
-      <LoginModal 
-        isOpen={isLoginModalOpen} 
-        onClose={() => setIsLoginModalOpen(false)} 
+    <div className="flex h-full overflow-hidden fantasy-bg relative">
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
       />
-      <AccountModal 
-        isOpen={isAccountModalOpen} 
-        onClose={() => setIsAccountModalOpen(false)} 
+      <AccountModal
+        isOpen={isAccountModalOpen}
+        onClose={() => setIsAccountModalOpen(false)}
       />
-      <DownloadModal 
-        isOpen={isDownloadModalOpen} 
-        onClose={() => setIsDownloadModalOpen(false)} 
+      <DownloadModal
+        isOpen={isDownloadModalOpen}
+        onClose={() => setIsDownloadModalOpen(false)}
       />
-      {/* Sidebar - hidden on mobile, visible on desktop */}
-      <div className="fixed left-0 top-0 h-full z-10 hidden md:block">
-        <Sidebar 
-          isOpen={sidebarOpen} 
-          toggleSidebar={toggleSidebar} 
-          openLoginModal={() => setIsLoginModalOpen(true)} 
-          openAccountModal={() => setIsAccountModalOpen(true)}
-          openDownloadModal={() => setIsDownloadModalOpen(true)}
-        />
-      </div>
-      <main
-        className={`flex-1 h-full overflow-auto transition-all duration-300
-            ml-0 ${sidebarOpen ? "md:ml-72" : "md:ml-0"}
-            ${modelSidebarOpen ? "mr-64" : "mr-0"}
-            pb-20 md:pb-0
-          `}
-      >
+      
+      {/* 移动端优先布局 - 完全移除桌面端侧边栏 */}
+      <main className="flex-1 h-full overflow-auto pb-20 w-full">
         <div className="h-full relative">
-          <div className={`absolute top-4 right-4 z-[999] ${isMobile && modelSidebarOpen ? "hidden" : ""}`}>
+          {/* 移动端设置按钮 - 右上角 */}
+          <div className={`absolute top-4 right-4 z-[999] ${modelSidebarOpen ? "hidden" : ""}`}>
             <SettingsDropdown toggleModelSidebar={toggleModelSidebar} />
           </div>
 
@@ -165,13 +152,14 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         </div>
       </main>
 
+      {/* 移动端模型设置侧边栏 */}
       <div className="fixed right-0 top-0 h-full z-40">
         <ModelSidebar isOpen={modelSidebarOpen} toggleSidebar={toggleModelSidebar} />
       </div>
 
-      {/* Mobile Bottom Navigation */}
-      <MobileBottomNav 
-        openLoginModal={() => setIsLoginModalOpen(true)} 
+      {/* 移动端底部导航 */}
+      <MobileBottomNav
+        openLoginModal={() => setIsLoginModalOpen(true)}
         openAccountModal={() => setIsAccountModalOpen(true)}
       />
     </div>

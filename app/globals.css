@@ -15,6 +15,41 @@
   --sidebar-width: 0px; /* Default for mobile, will be updated by JavaScript */
 }
 
+/* 屏蔽PC端显示 - 只允许移动端访问 */
+@media (min-width: 768px) {
+  body {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%) !important;
+    min-height: 100vh !important;
+  }
+  
+  body > * {
+    display: none !important;
+  }
+  
+  body::before {
+    content: "📱 此应用仅支持移动端访问，请使用手机或平板设备浏览" !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    color: #f8d36a !important;
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    padding: 2rem !important;
+    border: 2px solid #534741 !important;
+    border-radius: 1rem !important;
+    background: rgba(26, 23, 20, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    max-width: 600px !important;
+    margin: 2rem !important;
+    line-height: 1.6 !important;
+  }
+}
+
 body {
   background-color: var(--main-bg);
   color: var(--text-primary);

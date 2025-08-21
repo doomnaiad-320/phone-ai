@@ -54,26 +54,9 @@ export default function MobileBottomNav({ openLoginModal, openAccountModal }: Mo
   const router = useRouter();
   const pathname = usePathname();
   const { isAuthenticated } = useAuth();
-  const [isMobile, setIsMobile] = useState(false);
   const { t, fontClass } = useLanguage();
 
-  useEffect(() => {
-    const checkIfMobile = () => {
-      const mobile = window.innerWidth < 768;
-      setIsMobile(mobile);
-    };
-
-    checkIfMobile();
-    
-    window.addEventListener("resize", checkIfMobile);
-    
-    return () => window.removeEventListener("resize", checkIfMobile);
-  }, []);
-
-  // Only show on mobile devices
-  if (!isMobile) {
-    return null;
-  }
+  // 移动端优先 - 始终显示底部导航
 
   const handleOpenAccount = () => {
     if (openAccountModal) {
@@ -86,7 +69,7 @@ export default function MobileBottomNav({ openLoginModal, openAccountModal }: Mo
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
+    <div className="fixed bottom-0 left-0 right-0 z-50">
       {/* Background with blur effect */}
       <div className="absolute inset-0 bg-[#1a1714]/95 backdrop-blur-md border-t border-[#534741]/50"></div>
       
