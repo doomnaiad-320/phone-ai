@@ -86,7 +86,7 @@ export default function RootLayout({
 }: { children: React.ReactNode }) {
   return (
     <html lang="zh" className="h-full">
-      <body className="h-full bg-[#171717] text-white">
+      <body className="h-full bg-gradient-to-br from-slate-50 to-slate-100 text-slate-800">
         <GoogleAnalytics />
         <SoundProvider>
           <LanguageProvider>
