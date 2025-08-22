@@ -3,7 +3,7 @@ import { ChatOpenAI } from "@langchain/openai";
 import { ChatOllama } from "@langchain/ollama";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { StringOutputParser } from "@langchain/core/output_parsers";
-import { PromptAssembler } from "@/lib/core/prompt-assembler";
+import { SimpleCharacterPrompt } from "@/lib/core/simple-character-prompt";
 import { RunnablePassthrough } from "@langchain/core/runnables";
 import { getCharacterCompressorPromptZh, getCharacterCompressorPromptEn } from "@/lib/prompts/character-prompts";
 import { CharacterHistory } from "@/lib/core/character-history";
@@ -15,13 +15,13 @@ export class CharacterDialogue {
   llm: any;
   dialogueChain: RunnablePassthrough | null = null;
   language: "zh" | "en" = "zh";
-  promptAssembler: PromptAssembler;
+  characterPromptTemplate: { systemMessage: string; userMessage: string } | null = null;
 
   constructor(character: Character) {
     this.character = character;
     this.history = new CharacterHistory(this.language);
     this.llm = null;
-    this.promptAssembler = new PromptAssembler({ language: this.language });
+    this.characterPromptTemplate = null;
   }
 
   async initialize(options?: DialogueOptions): Promise<void> {
@@ -31,10 +31,11 @@ export class CharacterDialogue {
         this.history = new CharacterHistory(options.language);
       }
 
-      this.promptAssembler = new PromptAssembler({
-        language: this.language,
-        contextWindow: options?.contextWindow || 5,
-      });
+      // 生成简化的角色提示词模板
+      this.characterPromptTemplate = SimpleCharacterPrompt.generateCharacterPrompt(
+        this.character.characterData,
+        this.language
+      );
       
       this.setupLLM(options);
       this.setupDialogueChain();

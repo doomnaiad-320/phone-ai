@@ -23,6 +23,7 @@ import Link from "next/link";
 import ImportCharacterModal from "@/components/ImportCharacterModal";
 import EditCharacterModal from "@/components/EditCharacterModal";
 import DownloadCharacterModal from "@/components/DownloadCharacterModal";
+import CreateCharacterModal from "@/components/CreateCharacterModal";
 import { getAllCharacters } from "@/function/character/list";
 import { deleteCharacter } from "@/function/character/delete";
 import { handleCharacterUpload } from "@/function/character/import";
@@ -54,6 +55,7 @@ export default function CharacterCards() {
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [currentCharacter, setCurrentCharacter] = useState<Character | null>(null);
   const [mounted, setMounted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -87,46 +89,28 @@ export default function CharacterCards() {
 
   const fetchCharacters = async () => {
     setIsLoading(true);
-    
-    // 直接提供测试数据用于功能验证
-    const testCharacters: Character[] = [
-      {
-        id: "test-1",
-        name: "艾莉娅",
-        personality: "温柔善良的精灵法师，擅长治疗魔法，总是关心他人的安危。",
-        scenario: "在魔法学院中学习",
-        first_mes: "你好，我是艾莉娅，很高兴认识你！",
-        creatorcomment: "测试角色1",
-        created_at: new Date().toISOString(),
-        avatar_path: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face"
-      },
-      {
-        id: "test-2",
-        name: "雷克斯",
-        personality: "勇敢的战士，有着强烈的正义感，永远站在弱者一边。",
-        scenario: "在冒险者公会接受任务",
-        first_mes: "嘿！需要帮助吗？我是雷克斯！",
-        creatorcomment: "测试角色2",
-        created_at: new Date().toISOString(),
-        avatar_path: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
-      },
-      {
-        id: "test-3",
-        name: "露娜",
-        personality: "神秘的占星师，能够预知未来，说话总是带着诗意。",
-        scenario: "在星空下占卜",
-        first_mes: "星辰告诉我，我们的相遇并非偶然...",
-        creatorcomment: "测试角色3",
-        created_at: new Date().toISOString(),
-        avatar_path: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
-      }
-    ];
-    
-    // 模拟加载延迟
-    setTimeout(() => {
-      setCharacters(testCharacters);
+    try {
+      const characterRecords = await getAllCharacters("zh");
+      
+      // 转换数据格式
+      const formattedCharacters: Character[] = characterRecords.map(record => ({
+        id: record.id,
+        name: record.name || "未命名角色",
+        personality: record.personality || "神秘的角色",
+        scenario: record.scenario,
+        first_mes: record.first_mes,
+        creatorcomment: record.creatorcomment,
+        created_at: record.created_at,
+        avatar_path: record.avatar_path
+      }));
+      
+      setCharacters(formattedCharacters);
+    } catch (err) {
+      console.error("Error fetching characters:", err);
+      showErrorToast(t("characterCardsPage.fetchError") || "Failed to fetch characters");
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleDeleteCharacter = async (characterId: string) => {
@@ -361,12 +345,26 @@ export default function CharacterCards() {
             通讯录
           </h1>
           <div className="flex gap-2">
-            <button 
-              onClick={() => setIsImportModalOpen(true)}
+            <button
+              onClick={() => setIsCreateModalOpen(true)}
               className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+              title="添加新角色"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 5v14M5 12h14"/>
+              </svg>
+            </button>
+            <button
+              onClick={() => setIsImportModalOpen(true)}
+              className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+              title="导入角色文件"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14,2 14,8 20,8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10,9 9,9 8,9"/>
               </svg>
             </button>
             <button 
@@ -531,6 +529,11 @@ export default function CharacterCards() {
       </div>
 
       {/* 模态框 */}
+      <CreateCharacterModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSuccess={fetchCharacters}
+      />
       <ImportCharacterModal
         isOpen={isImportModalOpen}
         onClose={() => setIsImportModalOpen(false)}

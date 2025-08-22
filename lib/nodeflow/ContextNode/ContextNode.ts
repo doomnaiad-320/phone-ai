@@ -33,11 +33,12 @@ export class ContextNode extends NodeBase {
       throw new Error("Character ID is required for ContextNode");
     }
 
-    // Assemble chat history for {{chatHistory}} placeholder
+    // Assemble chat history for {{userInput}} placeholder
     const result = await this.executeTool(
       "assembleChatHistory",
       userMessage,
       characterId,
+      userInput || "",
       memoryLength,
     ) as { userMessage: string; messages: DialogueMessage[] };
 

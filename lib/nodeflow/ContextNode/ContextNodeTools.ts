@@ -2,6 +2,7 @@ import { NodeTool } from "@/lib/nodeflow/NodeTool";
 import { LocalCharacterDialogueOperations } from "@/lib/data/roleplay/character-dialogue-operation";
 import { DialogueMessage } from "@/lib/models/character-dialogue-model";
 import { DialogueStory } from "@/lib/core/character-history";
+import { SimpleCharacterPrompt } from "@/lib/core/simple-character-prompt";
 
 export class ContextNodeTools extends NodeTool {
   protected static readonly toolType: string = "context";
@@ -33,19 +34,19 @@ export class ContextNodeTools extends NodeTool {
   static async assembleChatHistory(
     userMessage: string,
     characterId: string,
+    userInput: string,
     memoryLength: number = 10,
   ): Promise<{ userMessage: string; messages: DialogueMessage[] }> {
     try {
-      if (!userMessage.includes("{{chatHistory}}")) {
+      // 对于简化的提示词系统，直接处理用户输入
+      if (!userMessage.includes("{{userInput}}")) {
         return { userMessage, messages: [] };
       }
 
-      const historyData = await this.loadCharacterHistory(characterId);
-      const chatHistoryContent = this.formatChatHistory(historyData, memoryLength);
+      // 使用简化的提示词处理器来替换用户输入
+      const assembledUserMessage = SimpleCharacterPrompt.processUserMessage(userMessage, userInput);
 
-      const assembledUserMessage = userMessage.replace("{{chatHistory}}", chatHistoryContent);
-
-      console.log(`Assembled chat history for character ${characterId}`);
+      console.log(`Processed user input for character ${characterId}`);
 
       return {
         userMessage: assembledUserMessage,

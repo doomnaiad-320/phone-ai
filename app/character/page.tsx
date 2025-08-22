@@ -330,15 +330,10 @@ export default function CharacterPage() {
       // Reset initialization ref for new character
       initializationRef.current = false;
 
-      // Add minimum loading time to ensure user sees the loading animation
-      const startTime = Date.now();
-      const minLoadingTime = 500; // 500ms minimum loading time
-
       try {
         const username = getDisplayUsername() || undefined;
         const currentLanguage = localStorage.getItem("language") as "en" | "zh";
 
-        setLoadingPhase(t("characterChat.loading"));
         const response = await getCharacterDialogue(
           characterId,
           currentLanguage,
@@ -358,11 +353,10 @@ export default function CharacterPage() {
           avatar_path: character.imagePath,
         };
 
-        // Set character data but keep loading if we need to initialize dialogue
+        // Set character data immediately
         setCharacter(characterInfo);
 
         if (dialogue && dialogue.messages) {
-          setLoadingPhase(t("characterChat.loadingDialogue"));
           const formattedMessages = dialogue.messages.map((msg: any) => ({
             id: msg.id,
             role: msg.role,
@@ -375,19 +369,10 @@ export default function CharacterPage() {
               ?.nextPrompts || [],
           );
 
-          // Ensure minimum loading time has passed
-          const elapsedTime = Date.now() - startTime;
-          const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
-
-          if (remainingTime > 0) {
-            await new Promise((resolve) => setTimeout(resolve, remainingTime));
-          }
-
-          // All data loaded successfully
+          // All data loaded successfully - no artificial delay
           setIsLoading(false);
         } else if (!initializationRef.current) {
           // Need to initialize new dialogue - keep loading state
-          setLoadingPhase(t("characterChat.initializing"));
           setIsInitializing(true);
           initializationRef.current = true;
           await initializeNewDialogue(characterId);
@@ -551,18 +536,19 @@ export default function CharacterPage() {
     }
   };
 
-  useEffect(() => {
-    if (character && !isLoading && !isInitializing && !error) {
-      const hasSeenCharacterTour = localStorage.getItem(
-        "narratium_character_tour_completed",
-      );
-      if (!hasSeenCharacterTour) {
-        setTimeout(() => {
-          startCharacterTour();
-        }, 2000);
-      }
-    }
-  }, [character, isLoading, isInitializing, error, startCharacterTour]);
+  // 移除用户引导功能以提升加载速度
+  // useEffect(() => {
+  //   if (character && !isLoading && !isInitializing && !error) {
+  //     const hasSeenCharacterTour = localStorage.getItem(
+  //       "narratium_character_tour_completed",
+  //     );
+  //     if (!hasSeenCharacterTour) {
+  //       setTimeout(() => {
+  //         startCharacterTour();
+  //       }, 2000);
+  //     }
+  //   }
+  // }, [character, isLoading, isInitializing, error, startCharacterTour]);
 
   useEffect(() => {
     const handleSwitchToPresetView = (event: any) => {
